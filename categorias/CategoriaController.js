@@ -31,4 +31,22 @@ rotas.get("/admin/categorias", (req, res) => {
 	});
 });
 
+rotas.post("/categorias/delete", (req, res) => {
+	var id = req.body.id;
+	if (id != undefined) {
+		if (!isNaN(id)) {
+			Categoria.destroy({
+				where: {
+					id,
+				},
+			}).then(() => {
+				res.redirect("/admin/categorias");
+			});
+		} else {
+			res.redirect("#");
+		}
+	} else {
+		res.redirect("#");
+	}
+});
 module.exports = rotas;

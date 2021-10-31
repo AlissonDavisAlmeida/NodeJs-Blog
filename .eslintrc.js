@@ -20,5 +20,6 @@ module.exports = {
 		indent: ["warn", "tab"],
 		"no-tabs": "off",
 		"spaced-comment": "off",
+		"no-restricted-globals": "off",
 	},
 };

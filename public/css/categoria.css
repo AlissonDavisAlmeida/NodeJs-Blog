@@ -1,6 +1,15 @@
 .container{
     margin: 10px;
     padding: 10px;
+   
+}
+#tituloCategoria{
+    text-align:  center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    color: rgba(40, 26, 243, 0.404);
 }
 .card{
     padding: 10px;
