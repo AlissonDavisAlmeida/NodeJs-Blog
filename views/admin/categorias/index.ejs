@@ -2,30 +2,72 @@
 
     <body>
         <%- include ("../../partials/navbar.ejs") %>
-        <div class="container">
-            <h2 id="tituloCategoria" class="bg-light">Categorias</h2>
-            <hr>
-            <a class="btn btn-primary rounded-pill mb-2" href="./categorias/new">Criar Nova Categoria</a>
-            <table class="table table-success table-hover table-striped text-center "> 
-                <thead>
-                    <tr>
-                        <th>ID</th><th>Título</th><th>Slug</th><th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for( let index = 0; index < categorias.length; index++ ) { %>
+            <div class="container">
+                <h2 id="tituloCategoria" class="bg-light">Categorias</h2>
+                <hr>
+                <a class="btn btn-primary rounded-pill mb-2" href="./categorias/new">Criar Nova Categoria</a>
+                <table class="table table-success table-hover table-striped text-center ">
+                    <thead>
                         <tr>
-                            <th><%= index+1 %> </th><th><%= categorias[index].titulo %> </th><th><%= categorias[index].slug %> </th>
-                            <th class="w-25">
-                                <button class="btn btn-light rounded-pill" >Editar<i class="bi bi-pen me-3 text-primary"></i></button">
-                                    <form action="/categorias/delete" method="post">
-                                        <input type="hidden" name="id" value="<%= categorias[index].id %> ">
-                                        <button class="btn btn-light rounded-pill ms-4 me-0">Excluir<i class="bi bi-trash ms-2 text-danger"></i></button>
-                                    </form>
-                            </th>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Slug</th>
+                            <th>Ações</th>
                         </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        <% for( let index=0; index < categorias.length; index++ ) { %>
+                            <tr>
+                                <th>
+                                    <%= index+1 %>
+                                </th>
+                                <th>
+                                    <%= categorias[index].titulo %>
+                                </th>
+                                <th>
+                                    <%= categorias[index].slug %>
+                                </th>
+                                <th class="w-25">
+                                    <button class="btn btn-light rounded-pill">Editar<i
+                                            class="bi bi-pen me-3 text-primary"></i></button">
+
+                                        <button class="btn btn-light rounded-pill ms-4 me-0" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            Excluir<i class="bi bi-trash ms-2 text-danger"></i>
+                                        </button>
+
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Remover</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Tem Certeza que deseja apagar o registro?
+                                                    </div>
+                                                    <form action="/categorias/delete" method="post">
+                                                        <input type="hidden" name="id"
+                                                            value="<%= categorias[index].id %> ">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                data-bs-dismiss="modal">Confirmar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                </th>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
             <%- include ("../../partials/footer.ejs") %>
+                
