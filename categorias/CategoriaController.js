@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-var */
 /* eslint-disable prefer-destructuring */
 const express = require("express");
@@ -48,5 +49,33 @@ rotas.post("/categorias/delete", (req, res) => {
 	} else {
 		res.redirect("#");
 	}
+});
+
+rotas.get("/admin/categorias/edit/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+
+	Categoria.findByPk(id).then((categoria) => {
+		console.log(categoria);
+		if (categoria != undefined) {
+			res.render("admin/categorias/edit", { categoria });
+		} else {
+			res.redirect("/admin/categorias");
+		}
+	}).catch((erro) => {
+		res.redirect("/admin/categorias");
+	});
+});
+
+rotas.post("/categorias/update", (req, res) => {
+	const id = req.body.id;
+	const titulo = req.body.titulo;
+
+	Categoria.update({ titulo, slug: slugify(titulo) }, {
+		where: {
+			id,
+		},
+	}).then(() => {
+		res.redirect("/admin/categorias");
+	});
 });
 module.exports = rotas;

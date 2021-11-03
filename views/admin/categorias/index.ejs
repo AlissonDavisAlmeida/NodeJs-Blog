@@ -19,7 +19,7 @@
                         <% for( let index=0; index < categorias.length; index++ ) { %>
                             <tr>
                                 <th>
-                                    <%= index+1 %>
+                                    <%= categorias[index].id %>
                                 </th>
                                 <th>
                                     <%= categorias[index].titulo %>
@@ -28,8 +28,8 @@
                                     <%= categorias[index].slug %>
                                 </th>
                                 <th class="w-25">
-                                    <button class="btn btn-light rounded-pill">Editar<i
-                                            class="bi bi-pen me-3 text-primary"></i></button">
+                                    <a class="btn btn-light rounded-pill" href="/admin/categorias/edit/<%= categorias[index].id %> " role="button">Editar<i
+                                            class="bi bi-pen ms-2 text-primary"></i></a>
 
                                         <button class="btn btn-light rounded-pill ms-4 me-0" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">
@@ -46,7 +46,8 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Tem Certeza que deseja apagar o registro?
+                                                        <i class="bi bi-trash me-4 text-danger" style="font-size: 2rem; color: rgb(240, 60, 36);"></i>  
+                                                         Tem Certeza que deseja apagar o registro?
                                                     </div>
                                                     <form action="/categorias/delete" method="post">
                                                         <input type="hidden" name="id"

@@ -7,7 +7,7 @@ rotas.get("/artigos", (req, res) => {
 });
 
 rotas.get("/admin/artigos/new", (req, res) => {
-	res.send("Rota para criar artigos");
+	res.render("admin/artigos/new");
 });
 
 
