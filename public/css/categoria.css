@@ -23,3 +23,10 @@
 .form-control{
     margin-bottom: 10px;
 }
+.div-formulario{
+    display: flex;
+    
+}
+.dropdown{
+    margin-left: 20px;
+}

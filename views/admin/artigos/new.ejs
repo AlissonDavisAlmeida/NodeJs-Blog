@@ -15,9 +15,24 @@
                     </div>
                     <form action="/artigos/save" method="post">
                         <input type="text" class="form-control" name="titulo" placeholder="Defina o título do Artigo">
-                        <textarea class="form-control" name="artigp" id="" cols="30" rows="10"></textarea>
-                        <button class="btn btn-primary">Cadastrar</button>
+                        <textarea class="form-control" name="artigo" id="artigo" cols="30" rows="10"></textarea>
+                        <div class="div-formulario">
+                            <button class="btn btn-primary">Cadastrar</button>
 
+                            <div class="dropdown">
+                               
+                                <select class="form-select"  name="category" >
+                                    <% for( let index=0; index < categoria.length; index++ ) { %>
+                                        <option value="<%= categoria[index].id %>">
+
+                                                <%= categoria[index].titulo %>
+                                          </option>
+                                        <% } %>
+
+
+                                </select>
+                            
+                        </div>
                     </form>
 
                 </div>
@@ -25,3 +40,12 @@
 
 
             <%- include ("../../partials/footer.ejs") %>
+                <script src="/tinymce/tinymce.min.js"></script>
+                <script>
+                    tinymce.init({
+                        selector: "#artigo",
+                        plugins: [
+                            "advlist autolink link print preview hr wordcount fullscreen insertdatetime media save table paste"
+                        ]
+                    })
+                </script>
