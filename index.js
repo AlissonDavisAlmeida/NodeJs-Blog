@@ -20,6 +20,16 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.get("/:slug", (req, res) => {
+	const { slug } = req.params;
+	Artigo.findOne({
+		where: {
+			slug,
+		},
+	}).then((artigo) => {
+		res.render("artigo", { artigo });
+	});
+});
 
 app.use(rotasCategorias);
 app.use(rotaArtigo);

@@ -4,11 +4,16 @@ const { default: slugify } = require("slugify");
 const Slug = require("slugify");
 const Categorias = require("../categorias/Categoria");
 const Artigos = require("./Artigo");
+const database = require("../database/database");
 
 const rotas = express.Router();
 
-rotas.get("/artigos", (req, res) => {
-	res.send("<h1>Rota de Artigos</h1>");
+rotas.get("/admin/artigos", (req, res) => {
+	Artigos.findAll({
+		include: [{ model: Categorias }],
+	}).then((artigos) => {
+		res.render("admin/artigos/index", { artigos });
+	});
 });
 
 rotas.get("/admin/artigos/new", (req, res) => {
@@ -28,8 +33,28 @@ rotas.post("/artigos/save", (req, res) => {
 		body: artigo,
 		categoriumId: categoria,
 	}).then(() => {
-		res.redirect("/admin/categorias");
+		res.redirect("/admin/artigos");
 	});
 });
+
+rotas.post("/artigos/delete", (req, res) => {
+	const id = req.body.id;
+	if (id != undefined) {
+		if (!isNaN(id)) {
+			Artigos.destroy({
+				where: {
+					id,
+				},
+			}).then(() => {
+				res.redirect("/admin/artigos");
+			});
+		} else {
+			res.redirect("#");
+		}
+	} else {
+		res.redirect("#");
+	}
+});
+
 
 module.exports = rotas;

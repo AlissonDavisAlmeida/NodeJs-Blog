@@ -30,3 +30,6 @@
 .dropdown{
     margin-left: 20px;
 }
+.linhaArtigo{
+   cursor: pointer;
+}
