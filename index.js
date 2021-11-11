@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const express = require("express");
 const connection = require("./database/database");
 const rotaArtigo = require("./artigos/artigoController");
@@ -27,7 +28,9 @@ app.get("/:slug", (req, res) => {
 			slug,
 		},
 	}).then((artigo) => {
-		res.render("artigo", { artigo });
+		Categoria.findAll().then((categoria) => {
+			res.render("artigo", { artigo, categoria });
+		});
 	});
 });
 
@@ -35,9 +38,29 @@ app.use(rotasCategorias);
 app.use(rotaArtigo);
 
 app.get("/", (req, resp) => {
-	resp.render("index");
+	Artigo.findAll().then((artigo) => {
+		Categoria.findAll().then((categoria) => {
+			console.log(artigo);
+			resp.render("index", { artigo, categoria });
+		});
+	});
 });
 
 app.listen(3001, () => {
 	console.log("O servidor está rodando");
+});
+
+app.get("/categoria/:slug", (req, res) => {
+	const slug = req.params.slug;
+	Categoria.findOne({
+		where: {
+			slug,
+
+		},
+		include: [{ model: Artigo }],
+	}).then((categoria) => {
+		Categoria.findAll().then((categorias) => {
+			res.render("index", { artigos: categoria.artigos, categorias });
+		});
+	});
 });

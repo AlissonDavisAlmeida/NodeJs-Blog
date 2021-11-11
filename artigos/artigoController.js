@@ -56,5 +56,21 @@ rotas.post("/artigos/delete", (req, res) => {
 	}
 });
 
+rotas.get("/admin/artigos/edit/:id", (req, res) => {
+	const id = parseInt(req.params.id, 10);
+
+	Artigos.findByPk(id).then((artigo) => {
+		console.log(artigo);
+		if (artigo != undefined) {
+			Categorias.findAll().then((categoria) => {
+				res.render("admin/artigos/edit", { artigo, categoria });
+			});
+		} else {
+			res.redirect("/admin/artigos");
+		}
+	}).catch((erro) => {
+		res.redirect("/admin/artigos");
+	});
+});
 
 module.exports = rotas;

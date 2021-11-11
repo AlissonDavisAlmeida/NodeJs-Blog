@@ -1,0 +1,52 @@
+<%- include ("../../partials/header.ejs") %>
+
+    <body>
+        <%- include ("../../partials/navbar.ejs") %>
+
+
+           
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        Editar Artigo
+
+                    </h2>
+
+                </div>
+                <form action="/artigos/save" method="post">
+                    <input type="text" class="form-control" name="titulo" placeholder="Defina o título do Artigo" value="<%= artigo.titulo %> ">
+                    <textarea class="form-control" name="artigo" id="artigo" cols="30" rows="10" ><%= artigo.body %> </textarea>
+                    <div class="div-formulario">
+                        <button class="btn btn-primary">Atualizar</button>
+
+                        <div class="dropdown">
+                           
+                            <select class="form-select"  name="category" >
+                                <% for( let index=0; index < categoria.length; index++ ) { %>
+                                    <option value="<%= categoria[index].id %>">
+
+                                            <%= categoria[index].titulo %>
+                                      </option>
+                                    <% } %>
+
+
+                            </select>
+                        
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+            <%- include ("../../partials/footer.ejs") %>
+            <script src="/tinymce/tinymce.min.js"></script>
+            <script>
+                tinymce.init({
+                    selector: "#artigo",
+                    plugins: [
+                        "advlist autolink link print preview hr wordcount fullscreen insertdatetime media save table paste"
+                    ]
+                })
+            </script>
