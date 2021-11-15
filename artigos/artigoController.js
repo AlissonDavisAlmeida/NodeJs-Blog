@@ -73,4 +73,31 @@ rotas.get("/admin/artigos/edit/:id", (req, res) => {
 	});
 });
 
+rotas.post("/artigos/update", (req, res) => {
+	const id = req.body.id;
+	const titulo = req.body.titulo;
+	const artigo = req.body.artigo;
+	const categoria = req.body.category;
+	Artigos.update(
+		{
+			titulo, body: artigo, categoriumId: categoria, slug: slugify(titulo),
+		}, {
+			where: {
+				id,
+			},
+		},
+	).then(() => {
+		res.redirect("/admin/artigos");
+	}).catch((erro) => {
+		res.redirect("/admin/artigos");
+	});
+});
+
+rotas.get("/artigos/page/:numero", (req, res) => {
+	const page = parseInt(req.params.numero, 10);
+	Artigos.findAndCountAll({ limit: 1, offset: 1 * (page - 1) }).then((artigos) => {
+		res.json(artigos);
+	});
+});
+
 module.exports = rotas;

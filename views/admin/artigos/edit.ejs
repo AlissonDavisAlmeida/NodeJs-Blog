@@ -14,7 +14,8 @@
                     </h2>
 
                 </div>
-                <form action="/artigos/save" method="post">
+                <form action="/artigos/update" method="post">
+                    <input type="hidden" value="<%= artigo.id %> " name="id">
                     <input type="text" class="form-control" name="titulo" placeholder="Defina o título do Artigo" value="<%= artigo.titulo %> ">
                     <textarea class="form-control" name="artigo" id="artigo" cols="30" rows="10" ><%= artigo.body %> </textarea>
                     <div class="div-formulario">
@@ -24,10 +25,22 @@
                            
                             <select class="form-select"  name="category" >
                                 <% for( let index=0; index < categoria.length; index++ ) { %>
-                                    <option value="<%= categoria[index].id %>">
-
+                                    <% if (categoria[index].id === artigo.categoriumId) { %>
+                                    <option value="<%= categoria[index].id %>" selected="true">
+                                                
+                                        
+                                        <%= categoria[index].titulo %>
+                                    </option>
+                                     <% } else { %>
+                                       
+                                        <option value="<%= categoria[index].id %>" >
+                                                    
+                                            
                                             <%= categoria[index].titulo %>
-                                      </option>
+                                        </option>
+
+                                    
+                                    <% } %>
                                     <% } %>
 
 

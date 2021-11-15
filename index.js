@@ -4,7 +4,9 @@ const connection = require("./database/database");
 const rotaArtigo = require("./artigos/artigoController");
 const rotasCategorias = require("./categorias/CategoriaController");
 const Categoria = require("./categorias/Categoria");
+const rotaUser = require("./user/UserController");
 const Artigo = require("./artigos/Artigo");
+const User = require("./user/User");
 
 connection.authenticate().then(() => {
 	console.log("Conexão feita com sucesso");
@@ -21,7 +23,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/:slug", (req, res) => {
+/* app.get("/:slug", (req, res) => {
 	const { slug } = req.params;
 	Artigo.findOne({
 		where: {
@@ -32,10 +34,11 @@ app.get("/:slug", (req, res) => {
 			res.render("artigo", { artigo, categoria });
 		});
 	});
-});
+}); */
 
 app.use(rotasCategorias);
 app.use(rotaArtigo);
+app.use(rotaUser);
 
 app.get("/", (req, resp) => {
 	Artigo.findAll().then((artigo) => {
