@@ -13,6 +13,7 @@ const User = connection.define("usuarios", {
 	senha: {
 		type: Sequelize.STRING,
 		allowNull: false,
+
 	},
 });
 

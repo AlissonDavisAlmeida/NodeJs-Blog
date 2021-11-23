@@ -5,10 +5,11 @@ const Slug = require("slugify");
 const Categorias = require("../categorias/Categoria");
 const Artigos = require("./Artigo");
 const database = require("../database/database");
+const authMiddleware = require("../middleware/adminAuth");
 
 const rotas = express.Router();
 
-rotas.get("/admin/artigos", (req, res) => {
+rotas.get("/admin/artigos", authMiddleware, (req, res) => {
 	Artigos.findAll({
 		include: [{ model: Categorias }],
 	}).then((artigos) => {

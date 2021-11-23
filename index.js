@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 const express = require("express");
+const session = require("express-session");
 const connection = require("./database/database");
 const rotaArtigo = require("./artigos/artigoController");
 const rotasCategorias = require("./categorias/CategoriaController");
@@ -18,6 +19,18 @@ const app = express();
 
 //View Engine
 app.set("view engine", "ejs");
+
+//Redis
+
+
+//Sessões
+app.use(session({
+	secret: "alisqrodf",
+	resave: true,
+	saveUninitialized: true,
+	cookie: { maxAge: 30000000 },
+
+}));
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));

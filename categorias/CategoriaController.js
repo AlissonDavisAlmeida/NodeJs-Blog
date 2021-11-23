@@ -3,6 +3,7 @@
 /* eslint-disable prefer-destructuring */
 const express = require("express");
 const slugify = require("slugify");
+const authMiddleware = require("../middleware/adminAuth");
 
 const rotas = express.Router();
 const Categoria = require("./Categoria");
@@ -26,7 +27,7 @@ rotas.post("/categorias/save", (req, res) => {
 	}
 });
 
-rotas.get("/admin/categorias", (req, res) => {
+rotas.get("/admin/categorias", authMiddleware, (req, res) => {
 	Categoria.findAll().then((categorias) => {
 		res.render("admin/categorias/index", { categorias });
 	});
