@@ -18,7 +18,12 @@
     padding: 10px;
     
 }
-
+.direito{
+   
+}
+.esquerdo{
+    float: left;
+}
 
 .form-control{
     margin-bottom: 10px;

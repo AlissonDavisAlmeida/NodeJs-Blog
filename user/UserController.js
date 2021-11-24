@@ -12,7 +12,7 @@ rota.get("/admin/users", (req, res) => {
 	});
 });
 
-rota.get("", (req, res) => {
+rota.get("/admin/users/new", (req, res) => {
 	res.render("admin/usuarios/new");
 });
 
@@ -66,11 +66,16 @@ rota.post("/autenticado", (req, res) => {
 				id: usuario.id,
 				email: usuario.email,
 			};
-			res.json(req.session.user);
+			res.redirect("/");
 		} else {
 			res.redirect("/login");
 		}
 	});
+});
+
+rota.get("/logout", (req, res) => {
+	req.session.user = undefined;
+	res.redirect("/login");
 });
 module.exports = rota;
 
